@@ -80,7 +80,9 @@
     ],
     "moduleNameMapper": {
       "^@prisma$": "<rootDir>/prisma",
-      "^@prisma/(.*)$": "<rootDir>/prisma/$1"
+      "^@prisma/index$": "<rootDir>/prisma/index",
+      "^@prisma/prisma\\.service$": "<rootDir>/prisma/prisma.service",
+      "^@prisma/prisma\\.module$": "<rootDir>/prisma/prisma.module"
     },
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
