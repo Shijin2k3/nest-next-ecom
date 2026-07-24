@@ -71,7 +71,7 @@ export class AuthController {
   @ApiBearerAuth('JWT-auth')
   @ApiOperation({
     summary: 'Logout User',
-    description: 'Logs out user by revoking refresh token',
+    description: 'Log out user by revoking refresh token',
   })
   @ApiResponse({
     status: 200,
