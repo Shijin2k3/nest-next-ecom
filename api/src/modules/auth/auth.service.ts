@@ -1,4 +1,5 @@
 import {
+  BadRequestException,
   ConflictException,
   Injectable,
   UnauthorizedException,
@@ -80,6 +81,7 @@ export class AuthService {
   }
 
   async logout(userId: string) {
+    await this.validateUser(userId);
     await this.prisma.user.update({
       where: { userId },
       data: { refreshToken: null },
@@ -134,5 +136,17 @@ export class AuthService {
         role: user?.role,
       },
     };
+  }
+
+  private async validateUser(userId: string) {
+    const user = await this.prisma.user.findUnique({
+      where: {
+        userId,
+      },
+    });
+
+    if (!userId) {
+      throw new BadRequestException('User does not exist');
+    }
   }
 }
