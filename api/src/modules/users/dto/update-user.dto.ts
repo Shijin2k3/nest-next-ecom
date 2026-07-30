@@ -13,7 +13,7 @@ export class UpdateUserDto {
   firstName?: string;
 
   @ApiPropertyOptional()
-  @IsString()
   @IsOptional()
+  @IsString()
   lastName?: string;
 }
