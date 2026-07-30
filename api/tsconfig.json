@@ -16,7 +16,11 @@
     "baseUrl": "./",
     "paths": {
        "@prisma":["src/prisma"],
-      "@prisma/*":["src/prisma/*"]
+      "@prisma/*":["src/prisma/*"],
+       "@helper":["src/helper"],
+      "@helper/*":["src/helper/*"],
+      "@common":["src/common"],
+      "@common/*":["src/common/*"],
     },  
     "incremental": true,
     "skipLibCheck": true,

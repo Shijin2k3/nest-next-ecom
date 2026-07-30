@@ -9,8 +9,8 @@ import { LoginDto, RegisterDto } from './dto';
 import * as bcrypt from 'bcrypt';
 import { randomBytes } from 'crypto';
 import { JwtService } from '@nestjs/jwt';
-import { last } from 'rxjs';
 import { PrismaService } from '@prisma';
+import { hashPassword, verifyPassword } from '@helper';
 
 @Injectable()
 export class AuthService {
@@ -32,7 +32,7 @@ export class AuthService {
       throw new ConflictException('User already exists');
     }
 
-    const hashedPassword = await bcrypt.hash(password, this.SALT_ROUNDS);
+    const hashedPassword = await hashPassword(password, this.SALT_ROUNDS);
 
     const user = await this.prisma.user.create({
       data: { ...rest, password: hashedPassword },
@@ -117,7 +117,7 @@ export class AuthService {
       where: { emailId: dto.emailId },
     });
 
-    const isPasswordValid = await bcrypt.compare(dto.password, user?.password);
+    const isPasswordValid = await verifyPassword(dto.password, user?.password!);
 
     if (!user || !isPasswordValid) {
       throw new UnauthorizedException('Invalid Email or Password');
