@@ -7,9 +7,10 @@ import { ConfigModule } from '@nestjs/config';
 import { JwtStrategy } from './modules/auth/strategies/jwt.strategy';
 import { PrismaService } from '@prisma';
 import { UsersModule } from './modules/users/users.module';
+import { CategoryModule } from './modules/category/category.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), PrismaModule, AuthModule, UsersModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), PrismaModule, AuthModule, UsersModule, CategoryModule],
   controllers: [AppController],
   providers: [AppService, PrismaService, JwtStrategy],
 })
