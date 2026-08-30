@@ -1,4 +1,4 @@
-import { ApiPropertyOptional  } from '@nestjs/swagger';
+import { ApiPropertyOptional } from '@nestjs/swagger';
 import { Transform, Type } from 'class-transformer';
 import {
   IsBoolean,
@@ -8,11 +8,8 @@ import {
   Min,
 } from 'class-validator';
 
-export class QueryCategoryDto {
-  @ApiPropertyOptional({
-    description: 'Filter by active status',
-    example: true,
-  })
+export class QueryProductDto {
+  @ApiPropertyOptional()
   @Transform(({ value }) => {
     if (value === 'true' || value === true) return true;
     if (value === 'false' || value === false) return false;
@@ -22,9 +19,14 @@ export class QueryCategoryDto {
   @IsOptional()
   isActive?: boolean;
 
-  @ApiPropertyOptional({ description: 'Search by name' })
-  @IsOptional()
+  @ApiPropertyOptional()
   @IsString()
+  @IsOptional()
+  category?: string;
+
+  @ApiPropertyOptional()
+  @IsString()
+  @IsOptional()
   search?: string;
 
   @ApiPropertyOptional({
@@ -50,9 +52,4 @@ export class QueryCategoryDto {
   @Min(1)
   @IsOptional()
   limit: number = 10;
-
-  //   @ApiPropertyOptional({ description: 'Sort by name' })
-  //   @IsOptional()
-  //   @IsString()
-  //   sort?: string;
 }

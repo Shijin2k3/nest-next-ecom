@@ -8,9 +8,10 @@ import { JwtStrategy } from './modules/auth/strategies/jwt.strategy';
 import { PrismaService } from '@prisma';
 import { UsersModule } from './modules/users/users.module';
 import { CategoryModule } from './modules/category/category.module';
+import { ProductsModule } from './modules/products/products.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), PrismaModule, AuthModule, UsersModule, CategoryModule],
+  imports: [ConfigModule.forRoot({ isGlobal: true }), PrismaModule, AuthModule, UsersModule, CategoryModule, ProductsModule],
   controllers: [AppController],
   providers: [AppService, PrismaService, JwtStrategy],
 })
