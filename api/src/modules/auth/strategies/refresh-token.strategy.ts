@@ -60,5 +60,7 @@ export class RefreshTokenStrategy extends PassportStrategy(
     if (!refreshTokenMatches) {
       throw new UnauthorizedException('Invalid Refresh Token');
     }
+
+    return user;
   }
 }

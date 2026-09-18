@@ -9,9 +9,25 @@ import { PrismaService } from '@prisma';
 import { UsersModule } from './modules/users/users.module';
 import { CategoryModule } from './modules/category/category.module';
 import { ProductsModule } from './modules/products/products.module';
+import { OrdersModule } from './modules/orders/orders.module';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
-  imports: [ConfigModule.forRoot({ isGlobal: true }), PrismaModule, AuthModule, UsersModule, CategoryModule, ProductsModule],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    ThrottlerModule.forRoot([
+      {
+        ttl: 60,
+        limit: 100,
+      },
+    ]),
+    PrismaModule,
+    AuthModule,
+    UsersModule,
+    CategoryModule,
+    ProductsModule,
+    OrdersModule,
+  ],
   controllers: [AppController],
   providers: [AppService, PrismaService, JwtStrategy],
 })
