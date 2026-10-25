@@ -13,6 +13,14 @@ export class CategoryService {
 
   async create(dto: CreateCategoryDto) {
     const { name, slug, isActive, ...rest } = dto;
+    const existingCategory = await this.prisma.category.findFirst({
+      where: {
+        name: name,
+      },
+    });
+    if (existingCategory) {
+      throw new BadRequestException('Category with this name already exists');
+    }
 
     const categorySlug =
       slug ??
@@ -21,11 +29,11 @@ export class CategoryService {
         .replace(/\s+/g, '-')
         .replace(/[^\w-]/g, '');
 
-    const existingCategory = await this.prisma.category.findUnique({
+    const existingCategorySlug = await this.prisma.category.findUnique({
       where: { slug: categorySlug },
     });
 
-    if (existingCategory) {
+    if (existingCategorySlug) {
       throw new Error('Category with this name already exists');
     }
 
