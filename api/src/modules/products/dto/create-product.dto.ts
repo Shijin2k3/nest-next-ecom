@@ -50,8 +50,8 @@ export class CreateProductDto {
 
   @ApiProperty()
   @IsString()
-  @IsOptional()
-  category?: string;
+  @IsNotEmpty()
+  category: string;
 
   @ApiPropertyOptional()
   @IsBoolean()

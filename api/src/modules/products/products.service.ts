@@ -22,13 +22,22 @@ export class ProductsService {
 
     const { category, ...rest } = dto;
 
+    if (category) {
+      const existingCategory = await this.prisma.category.findUnique({
+        where: { id: category },
+      });
+      if (!existingCategory) {
+        throw new BadRequestException('Category does not exist');
+      }
+    }
+
     const product = await this.prisma.product.create({
       data: {
         ...rest,
         price: new Prisma.Decimal(dto.price),
         isActive:
           dto?.isActive === undefined ? undefined : dto?.isActive.valueOf(),
-        categoryId: category!,
+        categoryId: category,
       },
       include: { category: true },
     });
